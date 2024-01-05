@@ -1,5 +1,7 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:restaurant_menu/screens/details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool _isVisible = true;
-  Color? _color = Colors.red;
+  // Color? _color = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +59,50 @@ class _HomePageState extends State<HomePage> {
                 width: 120,
                 color: Colors.red,
               ),
+            ),
+            SizedBox(
+              height: 26.0,
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Navigator.of(context).push(_createRoute());
+              },
+              child: Text("Details Page"),
+            ),
+            SizedBox(
+              height: 26.0,
+            ),
+            BouncingWidget(
+              duration: Duration(milliseconds: 150),
+                scaleFactor: 0.7,
+                child: Container(
+                  height: 120,
+                  width: 120,
+                  color: Colors.red,
+                ),
+                onPressed:(){}
             )
           ],
         ),
       ),
+    );
+  }
+
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const DetailsPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child){
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.slowMiddle;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }
