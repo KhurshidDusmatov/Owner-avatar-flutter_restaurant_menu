@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -22,87 +23,52 @@ class _HomePageState extends State<HomePage> {
     FlutterNativeSplash.remove();
   }
 
-  bool _isVisible = true;
-  // Color? _color = Colors.red;
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _isVisible = !_isVisible;
-                  // if(_color == Colors.red){
-                  //   _color = Colors.green;
-                  // }else if(_color==Colors.green)(
-                  // _color = Colors.red
-                  // );
-                });
-              },
-              child: Text(
-                "Animation",
-                style: TextStyle(fontSize: 24.0),
-              ),
-            ),
-            SizedBox(
-              height: 26.0,
-            ),
-            AnimatedOpacity(
-              opacity: _isVisible ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 500),
-              child: Container(
-                height: 120,
-                width: 120,
-                color: Colors.red,
-              ),
-            ),
-            SizedBox(
-              height: 26.0,
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.of(context).push(_createRoute());
-              },
-              child: Text("Details Page"),
-            ),
-            SizedBox(
-              height: 26.0,
-            ),
-            BouncingWidget(
-              duration: Duration(milliseconds: 150),
-                scaleFactor: 0.7,
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  color: Colors.red,
-                ),
-                onPressed:(){}
-            )
+        body: Row(
+      children: [
+        NavigationRail(
+          onDestinationSelected: (int index){
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          selectedIndex: _selectedIndex,
+          backgroundColor: Color(0xff2A5270),
+          labelType: NavigationRailLabelType.all,
+          selectedLabelTextStyle: TextStyle(color: Colors.white, fontSize: 24.0),
+          unselectedLabelTextStyle: TextStyle(color: Colors.white70, fontSize: 18.0),
+          groupAlignment: 0.5,
+          destinations: [
+            NavigationRailDestination(
+                icon: SizedBox(),
+                label: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text("Блюда"),
+                )),
+            NavigationRailDestination(
+                icon: SizedBox(),
+                label: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text("Салаты"),
+                )),
+            NavigationRailDestination(
+                icon: SizedBox(),
+                label: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text("Напитки"),
+                )),
+            NavigationRailDestination(
+                icon: SizedBox(),
+                label: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text("Fast Food"),
+                )),
           ],
-        ),
-      ),
-    );
-  }
-
-
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const DetailsPage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child){
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.slowMiddle;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
+        )
+      ],
+    ));
   }
 }
