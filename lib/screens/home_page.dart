@@ -2,6 +2,10 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:restaurant_menu/screens/details_page.dart';
+import 'package:restaurant_menu/screens/dishes_page.dart';
+import 'package:restaurant_menu/screens/drinks_page.dart';
+import 'package:restaurant_menu/screens/fast_food_page.dart';
+import 'package:restaurant_menu/screens/salads_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -22,24 +27,33 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(const Duration(seconds: 2));
     FlutterNativeSplash.remove();
   }
+  
+  List<Widget> _pages = [
+    DishesPage(),
+    SaladsPage(),
+    DrinksPage(),
+    FastFoodPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Row(
       children: [
         NavigationRail(
-          onDestinationSelected: (int index){
+          onDestinationSelected: (int index) {
             setState(() {
               _selectedIndex = index;
             });
           },
+          minWidth: 55,
           selectedIndex: _selectedIndex,
           backgroundColor: Color(0xff2A5270),
           labelType: NavigationRailLabelType.all,
-          selectedLabelTextStyle: TextStyle(color: Colors.white, fontSize: 24.0),
-          unselectedLabelTextStyle: TextStyle(color: Colors.white70, fontSize: 18.0),
+          selectedLabelTextStyle:
+              TextStyle(color: Colors.white, fontSize: 24.0),
+          unselectedLabelTextStyle:
+              TextStyle(color: Colors.white70, fontSize: 18.0),
           groupAlignment: 0.5,
           destinations: [
             NavigationRailDestination(
@@ -67,7 +81,8 @@ class _HomePageState extends State<HomePage> {
                   child: Text("Fast Food"),
                 )),
           ],
-        )
+        ),
+        Expanded(child: _pages[_selectedIndex])
       ],
     ));
   }
