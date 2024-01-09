@@ -103,19 +103,20 @@ class _DishesPageState extends State<DishesPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 13),
                     SizedBox(
-                      height: 80,
+                      height: 86,
                       child: Text(
                         meal.name!,
                         style: TextStyle(
+                          height: 1.2,
                             color: Color(0xff1E2022),
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 13
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,7 +128,7 @@ class _DishesPageState extends State<DishesPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 13,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
