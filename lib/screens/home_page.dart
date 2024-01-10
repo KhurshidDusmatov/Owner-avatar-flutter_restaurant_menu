@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_menu/lang_provider.dart';
 import 'package:restaurant_menu/screens/dishes_page.dart';
 import 'package:restaurant_menu/screens/drinks_page.dart';
 import 'package:restaurant_menu/screens/fast_food_page.dart';
@@ -109,6 +111,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget langBuild() {
+    final langProvider = Provider.of<LangProvider>(context, listen: false);
     return Column(
       children: [
         SizedBox(height: 90),
@@ -129,12 +132,15 @@ class _HomePageState extends State<HomePage> {
               switch(index) {
                 case 0:{
                   context.setLocale(Locale("uz", "UZ"));
+                  langProvider.langChanged();
                 }
                 case 1:{
                   context.setLocale(Locale("ru", "RU"));
+                  langProvider.langChanged();
                 }
                 case 2:{
                   context.setLocale(Locale("en", "US"));
+                  langProvider.langChanged();
                 }
               }
               _langs[index].isActive = true;

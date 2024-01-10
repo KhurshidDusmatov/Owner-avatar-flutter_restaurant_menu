@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_menu/lang_provider.dart';
 import 'package:restaurant_menu/screens/home_page.dart';
 
 void main() async {
@@ -16,12 +18,21 @@ void main() async {
       ],
       path: 'assets/translation',
       // fallbackLocale: Locale('uz', 'UZ'),
-      child: const MyApp()));
+      child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => LangProvider())
+          ],
+      child: const MyApp())));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

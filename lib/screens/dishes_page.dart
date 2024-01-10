@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_menu/lang_provider.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 
 import 'details_page.dart';
@@ -28,41 +30,43 @@ class _DishesPageState extends State<DishesPage> {
             : exit(0);
         return Future.value(false);
       },
-      child: SafeArea(
-        child: _isItemSelected
-            ? DetailsPage(_selectedItemIndex)
-            : Scaffold(
-                body: Padding(
-                  padding: EdgeInsets.all(0.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        child: Text("title".tr(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15)),
-                      ),
-                      Expanded(
-                        child: GridView.builder(
-                          itemCount: 5,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  mainAxisExtent: 350,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 30),
-                          itemBuilder: (BuildContext context, int index) {
-                            return meal(Meal.meals[index], context, index);
-                          },
+      child: Consumer<LangProvider>(builder: (context, data, child) {
+        return SafeArea(
+          child: _isItemSelected
+              ? DetailsPage(_selectedItemIndex)
+              : Scaffold(
+                  body: Padding(
+                    padding: EdgeInsets.all(0.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          child: Text("title".tr(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15)),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: GridView.builder(
+                            itemCount: 5,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    mainAxisExtent: 350,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 30),
+                            itemBuilder: (BuildContext context, int index) {
+                              return meal(Meal.meals[index], context, index);
+                            },
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-      ),
+        );
+      }),
     );
   }
 
