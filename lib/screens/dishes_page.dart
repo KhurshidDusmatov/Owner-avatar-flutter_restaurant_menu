@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 
@@ -39,8 +40,7 @@ class _DishesPageState extends State<DishesPage> {
                     children: [
                       Container(
                         margin: EdgeInsets.all(16),
-                        child: Text(
-                            "Мы очень рады что  вы выбрали\nНаше ресторан, спасибо за визит!",
+                        child: Text("title".tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
                       ),
@@ -109,15 +109,13 @@ class _DishesPageState extends State<DishesPage> {
                       child: Text(
                         meal.name!,
                         style: TextStyle(
-                          height: 1.2,
+                            height: 1.2,
                             color: Color(0xff1E2022),
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
-                      height: 13
-                    ),
+                    SizedBox(height: 13),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

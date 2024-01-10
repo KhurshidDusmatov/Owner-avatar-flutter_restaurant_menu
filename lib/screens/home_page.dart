@@ -1,7 +1,6 @@
-import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:restaurant_menu/screens/details_page.dart';
 import 'package:restaurant_menu/screens/dishes_page.dart';
 import 'package:restaurant_menu/screens/drinks_page.dart';
 import 'package:restaurant_menu/screens/fast_food_page.dart';
@@ -37,8 +36,8 @@ class _HomePageState extends State<HomePage> {
     FastFoodPage()
   ];
   List<Lang> _langs = [
-    Lang(name: "uz", isActive: false),
-    Lang(name: "ru", isActive: true),
+    Lang(name: "uz", isActive: true),
+    Lang(name: "ru", isActive: false),
     Lang(name: "en", isActive: false),
   ];
 
@@ -58,58 +57,35 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Color(0xff2A5270),
           labelType: NavigationRailLabelType.all,
           selectedLabelTextStyle:
-              TextStyle(color: Colors.white, fontSize: 24.0),
+              TextStyle(color: Colors.white, fontSize: 23.0),
           unselectedLabelTextStyle:
-              TextStyle(color: Colors.white70, fontSize: 18.0),
+              TextStyle(color: Colors.white70, fontSize: 17.0),
           groupAlignment: 0.5,
-          leading: Column(
-            children: [
-              SizedBox(height: 90),
-              ToggleButtons(
-                selectedBorderColor: Color(0xff2A5270),
-                fillColor: Colors.transparent,
-                direction: Axis.vertical,
-                children: <Widget>[
-                  langButton(_langs[0]),
-                  langButton(_langs[1]),
-                  langButton(_langs[2]),
-                ],
-                onPressed: (int index) {
-                  setState(() {
-                    _langs.forEach((element) {
-                      element.isActive = false;
-                    });
-                    _langs[index].isActive = true;
-                  });
-                },
-                isSelected: _langs.map((e) => e.isActive = true).toList(),
-              ),
-            ],
-          ),
+          leading: langBuild(),
           destinations: [
             NavigationRailDestination(
                 icon: SizedBox(),
                 label: RotatedBox(
                   quarterTurns: -1,
-                  child: Text("Блюда"),
+                  child: Text("meals".tr()),
                 )),
             NavigationRailDestination(
                 icon: SizedBox(),
                 label: RotatedBox(
                   quarterTurns: -1,
-                  child: Text("Салаты"),
+                  child: Text("salads".tr()),
                 )),
             NavigationRailDestination(
                 icon: SizedBox(),
                 label: RotatedBox(
                   quarterTurns: -1,
-                  child: Text("Напитки"),
+                  child: Text("drinks".tr()),
                 )),
             NavigationRailDestination(
                 icon: SizedBox(),
                 label: RotatedBox(
                   quarterTurns: -1,
-                  child: Text("Fast Food"),
+                  child: Text("fast_food".tr()),
                 )),
           ],
         ),
@@ -129,6 +105,44 @@ class _HomePageState extends State<HomePage> {
           child: Text(lang.name!,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+    );
+  }
+
+  Widget langBuild() {
+    return Column(
+      children: [
+        SizedBox(height: 90),
+        ToggleButtons(
+          selectedBorderColor: Color(0xff2A5270),
+          fillColor: Colors.transparent,
+          direction: Axis.vertical,
+          children: <Widget>[
+            langButton(_langs[0]),
+            langButton(_langs[1]),
+            langButton(_langs[2]),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              _langs.forEach((e) {
+                e.isActive = false;
+              });
+              switch(index) {
+                case 0:{
+                  context.setLocale(Locale("uz", "UZ"));
+                }
+                case 1:{
+                  context.setLocale(Locale("ru", "RU"));
+                }
+                case 2:{
+                  context.setLocale(Locale("en", "US"));
+                }
+              }
+              _langs[index].isActive = true;
+            });
+          },
+          isSelected: _langs.map((e) => e.isActive = true).toList(),
+        ),
+      ],
     );
   }
 }

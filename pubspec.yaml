@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.1.0
   bouncing_widget: ^2.0.0
+  easy_localization: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   - assets/images/ic_in.png
   - assets/images/background.png
   - assets/images/vector.png
+  - assets/translation/
 
   fonts:
     - family: Manrope
