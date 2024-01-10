@@ -33,7 +33,7 @@ class _DishesPageState extends State<DishesPage> {
       child: Consumer<LangProvider>(builder: (context, data, child) {
         return SafeArea(
           child: _isItemSelected
-              ? DetailsPage(_selectedItemIndex)
+              ? DetailsPage(_selectedItemIndex, context.locale)
               : Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(0.0),
@@ -49,7 +49,7 @@ class _DishesPageState extends State<DishesPage> {
                         ),
                         Expanded(
                           child: GridView.builder(
-                            itemCount: 5,
+                            itemCount: getMeals().length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
@@ -57,7 +57,7 @@ class _DishesPageState extends State<DishesPage> {
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 30),
                             itemBuilder: (BuildContext context, int index) {
-                              return meal(Meal.meals[index], context, index);
+                              return meal(getMeals()[index], context, index);
                             },
                           ),
                         )
@@ -68,6 +68,21 @@ class _DishesPageState extends State<DishesPage> {
         );
       }),
     );
+  }
+
+  List<Meal> getMeals(){
+    switch(context.locale.toString()){
+      case "uz_UZ": {
+        return Meal.mealsUZ;
+      }
+      case "ru_RU": {
+        return Meal.mealsRU;
+      }
+      case "en_US": {
+        return Meal.mealsEN;
+      }
+      default: return Meal.mealsUZ;
+    }
   }
 
   Widget meal(Meal meal, context, int index) {
@@ -123,7 +138,7 @@ class _DishesPageState extends State<DishesPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Стоимость:",
+                        Text( "cost".tr(),
                             style: TextStyle(fontWeight: FontWeight.w500)),
                         Text(meal.cost!,
                             style: TextStyle(fontWeight: FontWeight.w500))
@@ -193,7 +208,7 @@ class _DishesPageState extends State<DishesPage> {
                                     ),
                                   ),
                                 ),
-                                child: Text("Подробнее")),
+                                child: Text("more".tr())),
                           ),
                         ],
                       ),

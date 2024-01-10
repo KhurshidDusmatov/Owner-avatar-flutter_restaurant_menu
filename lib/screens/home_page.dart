@@ -96,6 +96,41 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
+  void setCurrentButton(){
+    switch(context.locale.toString()){
+      case "uz_UZ": {
+        _langs.forEach((e) {
+          if(e.name == 'uz'){
+            e.isActive = true;
+          }else{
+            e.isActive = false;
+          }
+        });
+      }
+      break;
+      case "ru_RU": {
+        _langs.forEach((e) {
+          if(e.name == 'ru'){
+            e.isActive = true;
+          }else{
+            e.isActive = false;
+          }
+        });
+      }
+      break;
+      case "en_US": {
+        _langs.forEach((e) {
+          if(e.name == 'en'){
+            e.isActive = true;
+          }else{
+            e.isActive = false;
+          }
+        });
+      }
+      break;
+    }
+  }
+
   Widget langButton(Lang lang) {
     return Container(
       height: 40,
@@ -112,6 +147,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget langBuild() {
     final langProvider = Provider.of<LangProvider>(context, listen: false);
+    setCurrentButton();
     return Column(
       children: [
         SizedBox(height: 90),

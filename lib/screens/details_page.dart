@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsPage extends StatefulWidget {
   final int selectedItemIndex;
-  DetailsPage(this.selectedItemIndex, {super.key});
+  final Locale locale;
+  DetailsPage(this.selectedItemIndex, this.locale, {super.key});
 
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,18 +40,35 @@ class DetailsPage extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
-          details(Meal.meals[selectedItemIndex]),
+          details(getMeals()[widget.selectedItemIndex]),
           Positioned(
               top: -70,
               right: -48,
               child: Image.asset(
-                Meal.meals[selectedItemIndex].imageUrl!,
+                getMeals()[widget.selectedItemIndex].imageUrl!,
                 width: 200,
               ))
         ],
       ),
     );
   }
+
+  List<Meal> getMeals(){
+    switch(widget.locale.toString()){
+      case "uz_UZ": {
+        return Meal.mealsUZ;
+      }
+      case "ru_RU": {
+        return Meal.mealsRU;
+      }
+      case "en_US": {
+        return Meal.mealsEN;
+      }
+      default: return Meal.mealsUZ;
+    }
+  }
+
+
 
   Widget details(Meal meal){
     return Padding(
