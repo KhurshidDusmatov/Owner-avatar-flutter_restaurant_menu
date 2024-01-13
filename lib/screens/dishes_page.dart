@@ -16,72 +16,92 @@ class DishesPage extends StatefulWidget {
 }
 
 class _DishesPageState extends State<DishesPage> {
-  bool _isItemSelected = false;
   int _selectedItemIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final langProvider = Provider.of<LangProvider>(context, listen: false);
     return WillPopScope(
       onWillPop: () {
-        _isItemSelected
+        langProvider.getItemSelected()
             ? setState(() {
-                _isItemSelected = false;
+                langProvider.isItemSelected(false);
               })
             : exit(0);
         return Future.value(false);
       },
       child: Consumer<LangProvider>(builder: (context, data, child) {
         return SafeArea(
-          child: _isItemSelected
+          child: langProvider.getItemSelected()
               ? DetailsPage(_selectedItemIndex, context.locale)
               : Scaffold(
-                  body: Padding(
-                    padding: EdgeInsets.all(0.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(16),
-                          child: Text("title".tr(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15)),
-                        ),
-                        Expanded(
-                          child: GridView.builder(
-                            itemCount: getMeals().length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 1,
-                                    mainAxisExtent: 350,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 30),
-                            itemBuilder: (BuildContext context, int index) {
-                              return meal(getMeals()[index], context, index);
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                  body: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    return mainUI(constraints);
+                  }),
                 ),
         );
       }),
     );
   }
 
-  List<Meal> getMeals(){
-    switch(context.locale.toString()){
-      case "uz_UZ": {
+  Widget mainUI(BoxConstraints constraints) {
+    print("Current width : ${constraints.maxWidth}");
+    var axisCount = 1;
+    var currentWidth = constraints.maxWidth;
+    if (currentWidth <= 500) {
+      axisCount = 1;
+    } else if (currentWidth >= 500 && currentWidth <= 750) {
+      axisCount = 2;
+    } else if (currentWidth > 750 && currentWidth <= 1100) {
+      axisCount = 3;
+    } else {
+      axisCount = 4;
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.all(16),
+          child: Text("title".tr(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: EdgeInsets.only(top: 21),
+            itemCount: getMeals().length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 1 / 2,
+                crossAxisCount: axisCount,
+                mainAxisExtent: 350,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 30),
+            itemBuilder: (BuildContext context, int index) {
+              return meal(getMeals()[index], context, index);
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  List<Meal> getMeals() {
+    switch (context.locale.toString()) {
+      case "uz_UZ":
+        {
+          return Meal.mealsUZ;
+        }
+      case "ru_RU":
+        {
+          return Meal.mealsRU;
+        }
+      case "en_US":
+        {
+          return Meal.mealsEN;
+        }
+      default:
         return Meal.mealsUZ;
-      }
-      case "ru_RU": {
-        return Meal.mealsRU;
-      }
-      case "en_US": {
-        return Meal.mealsEN;
-      }
-      default: return Meal.mealsUZ;
     }
   }
 
@@ -138,7 +158,7 @@ class _DishesPageState extends State<DishesPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text( "cost".tr(),
+                        Text("cost".tr(),
                             style: TextStyle(fontWeight: FontWeight.w500)),
                         Text(meal.cost!,
                             style: TextStyle(fontWeight: FontWeight.w500))
@@ -194,7 +214,8 @@ class _DishesPageState extends State<DishesPage> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    _isItemSelected = true;
+                                    final langProvider = Provider.of<LangProvider>(context, listen: false);
+                                    langProvider.isItemSelected(true);
                                     _selectedItemIndex = index;
                                   });
                                 },

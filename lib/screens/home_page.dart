@@ -48,86 +48,102 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: Row(
       children: [
-        NavigationRail(
-          onDestinationSelected: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          minWidth: 55,
-          selectedIndex: _selectedIndex,
-          backgroundColor: Color(0xff2A5270),
-          labelType: NavigationRailLabelType.all,
-          selectedLabelTextStyle:
-              TextStyle(color: Colors.white, fontSize: 23.0),
-          unselectedLabelTextStyle:
-              TextStyle(color: Colors.white70, fontSize: 17.0),
-          groupAlignment: 0.5,
-          leading: langBuild(),
-          destinations: [
-            NavigationRailDestination(
-                icon: SizedBox(),
-                label: RotatedBox(
-                  quarterTurns: -1,
-                  child: Text("meals".tr()),
-                )),
-            NavigationRailDestination(
-                icon: SizedBox(),
-                label: RotatedBox(
-                  quarterTurns: -1,
-                  child: Text("salads".tr()),
-                )),
-            NavigationRailDestination(
-                icon: SizedBox(),
-                label: RotatedBox(
-                  quarterTurns: -1,
-                  child: Text("drinks".tr()),
-                )),
-            NavigationRailDestination(
-                icon: SizedBox(),
-                label: RotatedBox(
-                  quarterTurns: -1,
-                  child: Text("fast_food".tr()),
-                )),
-          ],
-        ),
+        LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+            return navigationMenu(constraints);
+        }),
         Expanded(child: _pages[_selectedIndex])
       ],
     ));
   }
 
-  void setCurrentButton(){
-    switch(context.locale.toString()){
-      case "uz_UZ": {
-        _langs.forEach((e) {
-          if(e.name == 'uz'){
-            e.isActive = true;
-          }else{
-            e.isActive = false;
-          }
-        });
-      }
-      break;
-      case "ru_RU": {
-        _langs.forEach((e) {
-          if(e.name == 'ru'){
-            e.isActive = true;
-          }else{
-            e.isActive = false;
-          }
-        });
-      }
-      break;
-      case "en_US": {
-        _langs.forEach((e) {
-          if(e.name == 'en'){
-            e.isActive = true;
-          }else{
-            e.isActive = false;
-          }
-        });
-      }
-      break;
+  Widget navigationMenu(BoxConstraints constraints) {
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: IntrinsicHeight(
+            child: NavigationRail(
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              minWidth: 55,
+              selectedIndex: _selectedIndex,
+              backgroundColor: Color(0xff2A5270),
+              labelType: NavigationRailLabelType.all,
+              selectedLabelTextStyle:
+                  TextStyle(color: Colors.white, fontSize: 23.0),
+              unselectedLabelTextStyle:
+                  TextStyle(color: Colors.white70, fontSize: 17.0),
+              groupAlignment: 0.5,
+              leading: langBuild(),
+              destinations: [
+                NavigationRailDestination(
+                    icon: SizedBox(),
+                    label: RotatedBox(
+                      quarterTurns: -1,
+                      child: Text("meals".tr()),
+                    )),
+                NavigationRailDestination(
+                    icon: SizedBox(),
+                    label: RotatedBox(
+                      quarterTurns: -1,
+                      child: Text("salads".tr()),
+                    )),
+                NavigationRailDestination(
+                    icon: SizedBox(),
+                    label: RotatedBox(
+                      quarterTurns: -1,
+                      child: Text("drinks".tr()),
+                    )),
+                NavigationRailDestination(
+                    icon: SizedBox(),
+                    label: RotatedBox(
+                      quarterTurns: -1,
+                      child: Text("fast_food".tr()),
+                    )),
+              ],
+            ),
+          )),
+    );
+  }
+
+  void setCurrentButton() {
+    switch (context.locale.toString()) {
+      case "uz_UZ":
+        {
+          _langs.forEach((e) {
+            if (e.name == 'uz') {
+              e.isActive = true;
+            } else {
+              e.isActive = false;
+            }
+          });
+        }
+        break;
+      case "ru_RU":
+        {
+          _langs.forEach((e) {
+            if (e.name == 'ru') {
+              e.isActive = true;
+            } else {
+              e.isActive = false;
+            }
+          });
+        }
+        break;
+      case "en_US":
+        {
+          _langs.forEach((e) {
+            if (e.name == 'en') {
+              e.isActive = true;
+            } else {
+              e.isActive = false;
+            }
+          });
+        }
+        break;
     }
   }
 
@@ -165,19 +181,22 @@ class _HomePageState extends State<HomePage> {
               _langs.forEach((e) {
                 e.isActive = false;
               });
-              switch(index) {
-                case 0:{
-                  context.setLocale(Locale("uz", "UZ"));
-                  langProvider.langChanged();
-                }
-                case 1:{
-                  context.setLocale(Locale("ru", "RU"));
-                  langProvider.langChanged();
-                }
-                case 2:{
-                  context.setLocale(Locale("en", "US"));
-                  langProvider.langChanged();
-                }
+              switch (index) {
+                case 0:
+                  {
+                    context.setLocale(Locale("uz", "UZ"));
+                    langProvider.langChanged();
+                  }
+                case 1:
+                  {
+                    context.setLocale(Locale("ru", "RU"));
+                    langProvider.langChanged();
+                  }
+                case 2:
+                  {
+                    context.setLocale(Locale("en", "US"));
+                    langProvider.langChanged();
+                  }
               }
               _langs[index].isActive = true;
             });
