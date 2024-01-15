@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_menu/lang_provider.dart';
+import 'package:restaurant_menu/provider/main_provider.dart';
 import 'package:restaurant_menu/screens/dishes_page.dart';
 import 'package:restaurant_menu/screens/drinks_page.dart';
 import 'package:restaurant_menu/screens/fast_food_page.dart';
+import 'package:restaurant_menu/screens/favourite_page.dart';
 import 'package:restaurant_menu/screens/salads_page.dart';
 
 import '../models/lang.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _pages = [
+    FavouritePage(),
     DishesPage(),
     SaladsPage(),
     DrinksPage(),
@@ -50,14 +52,15 @@ class _HomePageState extends State<HomePage> {
       children: [
         LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-            return navigationMenu(constraints);
+          return navigationMenu(constraints, context);
         }),
         Expanded(child: _pages[_selectedIndex])
       ],
     ));
   }
 
-  Widget navigationMenu(BoxConstraints constraints) {
+  Widget navigationMenu(BoxConstraints constraints, BuildContext context) {
+    final mainProvider = Provider.of<MainProvider>(context, listen: false);
     return SingleChildScrollView(
       child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -66,6 +69,9 @@ class _HomePageState extends State<HomePage> {
               onDestinationSelected: (int index) {
                 setState(() {
                   _selectedIndex = index;
+                  if (index == 0) {
+                    mainProvider.isItemSelected(false);
+                  }
                 });
               },
               minWidth: 55,
@@ -73,12 +79,22 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Color(0xff2A5270),
               labelType: NavigationRailLabelType.all,
               selectedLabelTextStyle:
-                  TextStyle(color: Colors.white, fontSize: 23.0),
+                  const TextStyle(color: Colors.white, fontSize: 21.0),
               unselectedLabelTextStyle:
-                  TextStyle(color: Colors.white70, fontSize: 17.0),
-              groupAlignment: 0.5,
+                  const TextStyle(color: Colors.white70, fontSize: 14.0),
+              groupAlignment: 0.1,
               leading: langBuild(),
               destinations: [
+                NavigationRailDestination(
+                    icon: SizedBox(),
+                    label: RotatedBox(
+                      quarterTurns: 0,
+                      child: Icon(
+                          Icons.favorite_border_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                 NavigationRailDestination(
                     icon: SizedBox(),
                     label: RotatedBox(
@@ -162,7 +178,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget langBuild() {
-    final langProvider = Provider.of<LangProvider>(context, listen: false);
+    final langProvider = Provider.of<MainProvider>(context, listen: false);
     setCurrentButton();
     return Column(
       children: [

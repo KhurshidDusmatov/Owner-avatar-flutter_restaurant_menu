@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_menu/lang_provider.dart';
+import 'package:restaurant_menu/provider/main_provider.dart';
 import 'package:restaurant_menu/screens/home_page.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ void main() async {
       // fallbackLocale: Locale('uz', 'UZ'),
       child: MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (_) => LangProvider())
+            ChangeNotifierProvider(create: (_) => MainProvider())
           ],
       child: const MyApp())));
 }

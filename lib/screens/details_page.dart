@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_menu/lang_provider.dart';
+import 'package:restaurant_menu/provider/main_provider.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -32,8 +32,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   icon: const Icon(Icons.arrow_back_ios),
                   color: Colors.white,
                   onPressed: () {
-                    final langProvider = Provider.of<LangProvider>(context, listen: false);
-                    langProvider.isItemSelected(false);
+                    final mainProvider = Provider.of<MainProvider>(context, listen: false);
+                    mainProvider.isItemSelected(false);
                   },
                 ),
               ),
