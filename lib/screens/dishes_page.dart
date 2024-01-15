@@ -7,8 +7,6 @@ import 'package:restaurant_menu/provider/main_provider.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 import 'package:restaurant_menu/widgets/product_item.dart';
 
-import 'details_page.dart';
-
 class DishesPage extends StatefulWidget {
   DishesPage({super.key});
 
@@ -17,33 +15,19 @@ class DishesPage extends StatefulWidget {
 }
 
 class _DishesPageState extends State<DishesPage> {
-  int _selectedItemIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final mainProvider = Provider.of<MainProvider>(context, listen: false);
-    return WillPopScope(
-      onWillPop: () {
-        mainProvider.getItemSelected()
-            ? setState(() {
-                mainProvider.isItemSelected(false);
-              })
-            : exit(0);
-        return Future.value(false);
-      },
-      child: Consumer<MainProvider>(builder: (context, data, child) {
+    return Consumer<MainProvider>(builder: (context, data, child) {
         return SafeArea(
-          child: mainProvider.getItemSelected()
-              ? DetailsPage(_selectedItemIndex, context.locale)
-              : Scaffold(
+          child: Scaffold(
                   body: LayoutBuilder(builder:
                       (BuildContext context, BoxConstraints constraints) {
                     return mainUI(constraints);
                   }),
                 ),
         );
-      }),
-    );
+      });
   }
 
   Widget mainUI(BoxConstraints constraints) {

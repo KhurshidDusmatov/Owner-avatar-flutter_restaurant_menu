@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_menu/screens/details_page.dart';
+import 'package:restaurant_menu/utils/navigator_settings.dart';
 
 import '../provider/main_provider.dart';
 
@@ -136,12 +138,7 @@ class _ProductItemState extends State<ProductItem> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    final mainProvider =
-                                        Provider.of<MainProvider>(context,
-                                            listen: false);
-                                    mainProvider.isItemSelected(true);
-                                    mainProvider
-                                        .selectedItemIndex(widget.index);
+                                   Navigator.of(context).push(createRoute(DetailsPage(widget.index)));
                                   });
                                 },
                                 style: ButtonStyle(

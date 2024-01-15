@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_menu/provider/main_provider.dart';
@@ -5,9 +6,8 @@ import 'package:restaurant_menu/models/meaL.dart';
 
 class DetailsPage extends StatefulWidget {
   final int selectedItemIndex;
-  final Locale locale;
 
-  DetailsPage(this.selectedItemIndex, this.locale, {super.key});
+  DetailsPage(this.selectedItemIndex, {super.key});
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -16,7 +16,8 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Consumer<MainProvider>(builder: (context, data, child) {
+      return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/background.png"),
@@ -27,20 +28,21 @@ class _DetailsPageState extends State<DetailsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 8, top: 4),
+                padding: const EdgeInsets.only(left: 3, top: 18),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
                   color: Colors.white,
                   onPressed: () {
-                    final mainProvider = Provider.of<MainProvider>(context, listen: false);
-                    mainProvider.isItemSelected(false);
+                    Navigator.pop(context);
                   },
                 ),
               ),
               Expanded(child: detailBody()),
             ],
           ),
-        ));
+        ),
+      );
+    });
   }
 
   Widget detailBody() {
@@ -67,7 +69,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   List<Meal> getMeals() {
-    switch (widget.locale.toString()) {
+    switch (context.locale.toString()) {
       case "uz_UZ":
         {
           return Meal.mealsUZ;
