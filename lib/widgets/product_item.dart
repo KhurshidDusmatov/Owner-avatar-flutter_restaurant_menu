@@ -121,8 +121,13 @@ class _ProductItemState extends State<ProductItem> {
                           //   width: 50,
                           // ),
                           IconButton(
-                              onPressed: () {
-                                mainProvider.setFavourite(widget.index);
+                              onPressed: () async {
+                                var favList = await mainProvider.getFavList();
+                                var newList = List.of(favList);
+                                if (!newList.contains(widget.index)) {
+                                  newList.add(widget.index);
+                                }
+                                mainProvider.setFavList(newList);
                               },
                               icon: Icon(Icons.favorite_border_outlined)),
                           Container(

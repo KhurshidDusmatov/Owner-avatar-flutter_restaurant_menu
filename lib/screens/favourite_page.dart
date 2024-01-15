@@ -11,14 +11,14 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mainProvider = Provider.of<MainProvider>(context, listen: false);
     return FutureBuilder(
-        future: mainProvider.getFavourite(),
-        builder: (BuildContext context, snapshot){
+        future: mainProvider.getFavList(),
+        builder: (BuildContext context, AsyncSnapshot snapshot){
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           } else {
             return GridView.builder(
               padding: EdgeInsets.only(top: 21),
-              itemCount: 1,
+              itemCount: snapshot.data.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 1 / 2,
                   crossAxisCount: 1,
@@ -26,7 +26,7 @@ class FavouritePage extends StatelessWidget {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 30),
               itemBuilder: (BuildContext context, int index) {
-                return ProductItem(Meal.mealsUZ[snapshot.data as int], index);
+                return ProductItem(Meal.mealsUZ[snapshot.data[index]], index);
               },
             );
           }
