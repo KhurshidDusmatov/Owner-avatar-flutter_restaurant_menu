@@ -17,19 +17,26 @@ class FavouritePage extends StatelessWidget {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return GridView.builder(
-                padding: const EdgeInsets.only(top: 21),
-                itemCount: snapshot.data.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1 / 2,
-                    crossAxisCount: 1,
-                    mainAxisExtent: 350,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 30),
-                itemBuilder: (BuildContext context, int index) {
-                  return ProductItem(Meal.mealsUZ[snapshot.data[index]], snapshot.data[index],
-                      isFavourite: true);
-                },
+              return Column(
+                children: [
+                  SizedBox(height: 28),
+                  Expanded(
+                    child: GridView.builder(
+                      padding: const EdgeInsets.only(top: 21),
+                      itemCount: snapshot.data.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1 / 2,
+                          crossAxisCount: 1,
+                          mainAxisExtent: 350,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ProductItem(Meal.mealsUZ[snapshot.data[index]], snapshot.data[index],
+                            isFavourite: true);
+                      },
+                    ),
+                  ),
+                ],
               );
             }
           });

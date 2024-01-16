@@ -60,7 +60,7 @@ class _DishesPageState extends State<DishesPage> {
                 crossAxisCount: axisCount,
                 mainAxisExtent: 350,
                 crossAxisSpacing: 10,
-                mainAxisSpacing: 30),
+                mainAxisSpacing: 10),
             itemBuilder: (BuildContext context, int index) {
               return FutureBuilder(
                   future: getFavourites(),
