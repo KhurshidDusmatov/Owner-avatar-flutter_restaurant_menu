@@ -3,6 +3,8 @@ class Meal {
   String? name;
   String? imageUrl;
   String? time;
+  String? kkal;
+  String? ing;
   String? cost;
   String? type;
   int? ingCount;
@@ -14,6 +16,8 @@ class Meal {
       this.name,
       this.imageUrl,
       this.time,
+      this.kkal,
+      this.ing,
       this.ingCount,
       this.bannerColor,
       this.cost,
@@ -22,22 +26,23 @@ class Meal {
 
   static List<Meal> mealsUZ = [
     Meal(
-      id: 1,
-      type: "Kavkazcha",
-      cost: "105 000 so'm",
-      name: "Qo'zi qovurg'asi kabobi",
-      imageUrl: "assets/images/meal1.png",
-      time: "20 min",
-      ingCount: 5,
-      bannerColor: 0xffF2DFE1,
-      details:
-          "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
-              "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
-              "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
-              "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
-              "mavjud bo‘lsada, O‘zbekistonda palov tayyorlash o‘zgachadir. O‘zbekistonning har bir mintaqasi "
-              "o‘zining yagona palov tayyorlash retseptiga egadir"
-    ),
+        id: 1,
+        type: "Kavkazcha",
+        cost: "105 000 so'm",
+        name: "Qo'zi qovurg'asi kabobi",
+        imageUrl: "assets/images/meal1.png",
+        time: "20 min",
+        kkal: "441 kal",
+        ing: "5 ing",
+        ingCount: 5,
+        bannerColor: 0xffF2DFE1,
+        details:
+            "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
+            "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
+            "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
+            "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
+            "mavjud bo‘lsada, O‘zbekistonda palov tayyorlash o‘zgachadir. O‘zbekistonning har bir mintaqasi "
+            "o‘zining yagona palov tayyorlash retseptiga egadir"),
     Meal(
         id: 2,
         type: "Kavkazcha",
@@ -45,9 +50,11 @@ class Meal {
         name: "Qiymali kabob",
         imageUrl: "assets/images/meal2.png",
         time: "20 min",
+        kkal: "441 kal",
+        ing: "5 ing",
         ingCount: 4,
         details:
-        "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
+            "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
             "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
             "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
             "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
@@ -61,9 +68,11 @@ class Meal {
         name: "To'y kakob",
         imageUrl: "assets/images/meal3.png",
         time: "18 min",
+        kkal: "441 kal",
+        ing: "4 ing",
         ingCount: 5,
         details:
-        "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
+            "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
             "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
             "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
             "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
@@ -77,9 +86,11 @@ class Meal {
         name: "Lag'mon",
         imageUrl: "assets/images/meal4.png",
         time: "20 min",
+        kkal: "441 kal",
+        ing: "5 ing",
         ingCount: 4,
         details:
-        "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
+            "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
             "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
             "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
             "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
@@ -93,9 +104,11 @@ class Meal {
         name: "Palov",
         imageUrl: "assets/images/meal5.png",
         time: "20 min",
+        kkal: "431 kal",
+        ing: "5 ing",
         ingCount: 4,
         details:
-        "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
+            "O‘zbekistonga tashrif buyurgan va haqiqiy o‘zbek palovini ta’mini tatib ko‘rmagan mehmon "
             "o‘zbek madaniyatining mohiatini va mehmondo‘stligini anglamagan hisoblanadi."
             "Ehtimol u hali bu yerda bo‘lgan emas.O‘zbek palovi- bu sharqona taomlarni xush ko‘ruvchilar "
             "va shirin ovqatlarni qadrlovchilar taomidir. Dunyoda 100 dan ortiq palov tayyorlash retsepti "
@@ -111,10 +124,12 @@ class Meal {
       name: "Шашлык бараньих ребрышек",
       imageUrl: "assets/images/meal1.png",
       time: "20 мин",
+      kkal: "441 кал",
+      ing: "5 инг",
       ingCount: 5,
       bannerColor: 0xffF2DFE1,
       details:
-      "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
+          "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
           "Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники."
           "\n"
           "Не беда, если руки растут из нужного места, шашлык можно приготовить из того что оставили нам эти коршуны. "
@@ -128,9 +143,11 @@ class Meal {
         name: "Шашлык",
         imageUrl: "assets/images/meal2.png",
         time: "20 мин",
+        kkal: "441 кал",
+        ing: "5 инг",
         ingCount: 4,
         details:
-        "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
+            "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
             "Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники."
             "Не беда, если руки растут из нужного места, шашлык можно приготовить из того что оставили нам эти коршуны. "
             "Будем готовить бараньи ребрышки. "
@@ -143,9 +160,11 @@ class Meal {
         name: "бараньих ребрышек",
         imageUrl: "assets/images/meal3.png",
         time: "18 мин",
+        kkal: "441 кал",
+        ing: "5 инг",
         ingCount: 5,
         details:
-        "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
+            "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
             "Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники."
             "Не беда, если руки растут из нужного места, шашлык можно приготовить из того что оставили нам эти коршуны. "
             "Будем готовить бараньи ребрышки. "
@@ -158,9 +177,11 @@ class Meal {
         name: "ребрышек",
         imageUrl: "assets/images/meal4.png",
         time: "20 мин",
+        kkal: "441 кал",
+        ing: "5 инг",
         ingCount: 4,
         details:
-        "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
+            "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
             "Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники."
             "Не беда, если руки растут из нужного места, шашлык можно приготовить из того что оставили нам эти коршуны. "
             "Будем готовить бараньи ребрышки. "
@@ -173,9 +194,11 @@ class Meal {
         name: "ребрышек",
         imageUrl: "assets/images/meal5.png",
         time: "20 мин",
+        kkal: "441 кал",
+        ing: "5 инг",
         ingCount: 4,
         details:
-        "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
+            "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. "
             "Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники."
             "Не беда, если руки растут из нужного места, шашлык можно приготовить из того что оставили нам эти коршуны. "
             "Будем готовить бараньи ребрышки. "
@@ -190,10 +213,12 @@ class Meal {
       name: "Barbeque",
       imageUrl: "assets/images/meal1.png",
       time: "20 min",
+      kkal: "441 kal",
+      ing: "4 ing",
       ingCount: 5,
       bannerColor: 0xffF2DFE1,
       details:
-      "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
+          "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
           "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
           "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
           "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
@@ -206,9 +231,11 @@ class Meal {
         name: "Kebab",
         imageUrl: "assets/images/meal2.png",
         time: "20 min",
+        kkal: "441 kal",
+        ing: "5 ing",
         ingCount: 4,
         details:
-        "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
+            "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
             "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
             "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
             "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
@@ -221,13 +248,15 @@ class Meal {
         name: "Kebab",
         imageUrl: "assets/images/meal3.png",
         time: "18 min",
+        kkal: "441 kal",
+        ing: "5 ing",
         ingCount: 5,
         details:
-        "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
-          "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
-          "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
-          "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
-          "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
+            "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
+            "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
+            "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
+            "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
+            "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
         bannerColor: 0xffFFC5A8),
     Meal(
         id: 4,
@@ -236,13 +265,15 @@ class Meal {
         name: "Kebab",
         imageUrl: "assets/images/meal4.png",
         time: "20 min",
+        kkal: "441 kal",
+        ing: "4 ing",
         ingCount: 4,
         details:
-        "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
-          "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
-          "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
-          "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
-          "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
+            "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
+            "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
+            "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
+            "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
+            "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
         bannerColor: 0xff71C3A1),
     Meal(
         id: 4,
@@ -251,13 +282,15 @@ class Meal {
         name: "Kebab",
         imageUrl: "assets/images/meal5.png",
         time: "20 min",
+        kkal: "441 kal",
+        ing: "5 ing",
         ingCount: 4,
         details:
-        "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
-          "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
-          "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
-          "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
-          "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
+            "A guest who has visited Uzbekistan and has not tasted authentic Uzbek pilaf is considered to "
+            "have not understood the essence of Uzbek culture and hospitality. Perhaps he has not been here yet. "
+            "Uzbek pilaf is a taste of oriental food. it is a food for those who appreciate visionaries and sweet foods. "
+            "Although there are more than 100 recipes for making pilaf in the world, making pilaf in "
+            "Uzbekistan is special. Each region of Uzbekistan has its own recipe for making pilaf.",
         bannerColor: 0xffA8B6FF),
   ];
 }

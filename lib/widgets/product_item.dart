@@ -104,7 +104,7 @@ class _ProductItemState extends State<ProductItem> {
                               width: 16,
                             ),
                             SizedBox(width: 5),
-                            Text(widget.meal.ingCount.toString() + " инг",
+                            Text(widget.meal.ing!,
                                 style: TextStyle(fontWeight: FontWeight.w500))
                           ],
                         ),

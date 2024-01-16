@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_menu/provider/main_provider.dart';
-import 'package:restaurant_menu/models/meaL.dart';
+
+import '../models/meaL.dart';
 
 class DetailsPage extends StatefulWidget {
   final int selectedItemIndex;
@@ -127,7 +128,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     width: 16,
                   ),
                   SizedBox(width: 5),
-                  Text(meal.ingCount.toString() + " инг",
+                  Text(meal.ing!,
                       style: TextStyle(fontWeight: FontWeight.w500))
                 ],
               ),
@@ -139,7 +140,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     width: 16,
                   ),
                   SizedBox(width: 5),
-                  Text("438 кал", style: TextStyle(fontWeight: FontWeight.w500))
+                  Text(meal.kkal!, style: TextStyle(fontWeight: FontWeight.w500))
                 ],
               ),
             ],
