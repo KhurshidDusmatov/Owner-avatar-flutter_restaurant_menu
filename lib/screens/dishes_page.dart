@@ -15,19 +15,18 @@ class DishesPage extends StatefulWidget {
 }
 
 class _DishesPageState extends State<DishesPage> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<MainProvider>(builder: (context, data, child) {
-        return SafeArea(
-          child: Scaffold(
-                  body: LayoutBuilder(builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                    return mainUI(constraints);
-                  }),
-                ),
-        );
-      });
+      return SafeArea(
+        child: Scaffold(
+          body: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            return mainUI(constraints);
+          }),
+        ),
+      );
+    });
   }
 
   Widget mainUI(BoxConstraints constraints) {
@@ -63,12 +62,37 @@ class _DishesPageState extends State<DishesPage> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 30),
             itemBuilder: (BuildContext context, int index) {
-              return ProductItem(getMeals()[index], index);
+              return FutureBuilder(
+                  future: getFavourites(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data.contains(index)) {
+                        return ProductItem(
+                          getMeals()[index],
+                          index,
+                          isFavourite: true,
+                        );
+                      } else {
+                        return ProductItem(
+                          getMeals()[index],
+                          index,
+                          isFavourite: false,
+                        );
+                      }
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  });
             },
           ),
         )
       ],
     );
+  }
+
+  Future<List<int>> getFavourites() async {
+    final mainProvider = Provider.of<MainProvider>(context, listen: false);
+    return await mainProvider.getFavList();
   }
 
   List<Meal> getMeals() {
@@ -89,4 +113,6 @@ class _DishesPageState extends State<DishesPage> {
         return Meal.mealsUZ;
     }
   }
+
+
 }

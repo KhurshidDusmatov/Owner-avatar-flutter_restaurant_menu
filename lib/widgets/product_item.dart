@@ -9,8 +9,9 @@ import '../provider/main_provider.dart';
 class ProductItem extends StatefulWidget {
   final meal;
   int index;
+  bool isFavourite;
 
-  ProductItem(this.meal, this.index, {super.key});
+  ProductItem(this.meal, this.index, {this.isFavourite = false, super.key});
 
   @override
   State<ProductItem> createState() => _ProductItemState();
@@ -19,7 +20,6 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-    final mainProvider = Provider.of<MainProvider>(context, listen: false);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -124,21 +124,23 @@ class _ProductItemState extends State<ProductItem> {
                           // ),
                           IconButton(
                               onPressed: () async {
-                                var favList = await mainProvider.getFavList();
-                                var newList = List.of(favList);
-                                if (!newList.contains(widget.index)) {
-                                  newList.add(widget.index);
+                                if(widget.isFavourite){
+                                  removeFromFavourite(widget.index);
+                                }else{
+                                  addToFavourite();
                                 }
-                                mainProvider.setFavList(newList);
                               },
-                              icon: Icon(Icons.favorite_border_outlined)),
+                              icon: widget.isFavourite
+                                  ? Icon(Icons.favorite_outlined)
+                                  : Icon(Icons.favorite_border_outlined)),
                           Container(
                             height: 50,
                             width: 120,
                             child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                   Navigator.of(context).push(createRoute(DetailsPage(widget.index)));
+                                    Navigator.of(context).push(
+                                        createRoute(DetailsPage(widget.index)));
                                   });
                                 },
                                 style: ButtonStyle(
@@ -171,4 +173,24 @@ class _ProductItemState extends State<ProductItem> {
       ],
     );
   }
+
+  void addToFavourite() async{
+    final mainProvider = Provider.of<MainProvider>(context, listen: false);
+    var favList = await mainProvider.getFavList();
+    var newList = List.of(favList);
+    if (!newList.contains(widget.index)) {
+      newList.add(widget.index);
+    }
+    mainProvider.setFavList(newList);
+  }
+
+  void removeFromFavourite(int index) async {
+    final mainProvider = Provider.of<MainProvider>(context, listen: false);
+    var favList = await mainProvider.getFavList();
+    var newList = List.of(favList);
+    newList.remove(index);
+    mainProvider.setFavList(newList);
+  }
+
+
 }

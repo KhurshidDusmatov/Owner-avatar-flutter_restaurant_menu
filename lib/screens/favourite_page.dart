@@ -10,26 +10,29 @@ class FavouritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainProvider = Provider.of<MainProvider>(context, listen: false);
-    return FutureBuilder(
-        future: mainProvider.getFavList(),
-        builder: (BuildContext context, AsyncSnapshot snapshot){
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            return GridView.builder(
-              padding: EdgeInsets.only(top: 21),
-              itemCount: snapshot.data.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1 / 2,
-                  crossAxisCount: 1,
-                  mainAxisExtent: 350,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 30),
-              itemBuilder: (BuildContext context, int index) {
-                return ProductItem(Meal.mealsUZ[snapshot.data[index]], index);
-              },
-            );
-          }
-        });
+    return Consumer<MainProvider>(builder: (context, data, child) {
+      return FutureBuilder(
+          future: mainProvider.getFavList(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return GridView.builder(
+                padding: const EdgeInsets.only(top: 21),
+                itemCount: snapshot.data.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1 / 2,
+                    crossAxisCount: 1,
+                    mainAxisExtent: 350,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 30),
+                itemBuilder: (BuildContext context, int index) {
+                  return ProductItem(Meal.mealsUZ[snapshot.data[index]], snapshot.data[index],
+                      isFavourite: true);
+                },
+              );
+            }
+          });
+    });
   }
 }
