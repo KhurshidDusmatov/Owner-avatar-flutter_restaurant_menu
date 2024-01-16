@@ -1,12 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_menu/models/meaL.dart';
 import '../provider/main_provider.dart';
 import '../widgets/product_item.dart';
 
-class FavouritePage extends StatelessWidget {
+class FavouritePage extends StatefulWidget {
   const FavouritePage({super.key});
 
+  @override
+  State<FavouritePage> createState() => _FavouritePageState();
+}
+
+class _FavouritePageState extends State<FavouritePage> {
   @override
   Widget build(BuildContext context) {
     final mainProvider = Provider.of<MainProvider>(context, listen: false);
@@ -31,7 +37,7 @@ class FavouritePage extends StatelessWidget {
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10),
                       itemBuilder: (BuildContext context, int index) {
-                        return ProductItem(Meal.mealsUZ[snapshot.data[index]], snapshot.data[index],
+                        return ProductItem(getMeals()[snapshot.data[index]], snapshot.data[index],
                             isFavourite: true);
                       },
                     ),
@@ -41,5 +47,24 @@ class FavouritePage extends StatelessWidget {
             }
           });
     });
+  }
+
+  List<Meal> getMeals() {
+    switch (context.locale.toString()) {
+      case "uz_UZ":
+        {
+          return Meal.mealsUZ;
+        }
+      case "ru_RU":
+        {
+          return Meal.mealsRU;
+        }
+      case "en_US":
+        {
+          return Meal.mealsEN;
+        }
+      default:
+        return Meal.mealsUZ;
+    }
   }
 }
