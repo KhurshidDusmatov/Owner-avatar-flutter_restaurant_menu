@@ -1,4 +1,4 @@
-This project learned from Zayniddin M
+This project learned from (c) Zayniddin Mamarasulov
 # Restaurant Menu UI
 # Mobile
 <img src="ui_images/m1.jpg" width = 240 height = 480 > ### <img src="ui_images/m2.jpg" width = 240 height = 480 > ###
